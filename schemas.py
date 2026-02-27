@@ -26,6 +26,9 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     phone_number: Optional[str] = None
 
+class VoteCreate(BaseModel):
+    vote_type: str
+
 class ComplaintBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -38,6 +41,7 @@ class ComplaintCreate(ComplaintBase):
     department: str
     subcategory: str # This maps to issue_type in DB
     voice_url: Optional[str] = None
+    force_create: bool = False
 
 class ComplaintAIResponse(ComplaintBase):
     id: int
@@ -51,9 +55,25 @@ class ComplaintAIResponse(ComplaintBase):
     confidence_score: Optional[float] = None
     department_suggested: Optional[str] = None
     votes: int = 0
+    yes_votes: int = 0
+    no_votes: int = 0
+    idk_votes: int = 0
+    
+    community_yes_ratio: float = 0.5
+    critical_area_weight: float = 0.3
+    department_urgency_index: float = 0.5
+    priority_score: float = 0.0
+    
+    user_feedback: Optional[str] = None
+    user_feedback_rating: Optional[int] = None
+    estimated_completion_time: Optional[str] = None
 
     class Config:
         from_attributes = True
+
+class FeedbackCreate(BaseModel):
+    feedback: str
+    rating: int
 
 class Worker(BaseModel):
     id: int

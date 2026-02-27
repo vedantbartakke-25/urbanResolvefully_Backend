@@ -32,10 +32,31 @@ class Complaint(Base):
     confidence_score = Column(Float, nullable=True)
     department_suggested = Column(String, nullable=True)
     votes = Column(Integer, default=0)
+    yes_votes = Column(Integer, default=0)
+    no_votes = Column(Integer, default=0)
+    idk_votes = Column(Integer, default=0)
+    
+    community_yes_ratio = Column(Float, default=0.5)
+    critical_area_weight = Column(Float, default=0.3)
+    department_urgency_index = Column(Float, default=0.5)
+    priority_score = Column(Float, default=0.0)
+    
+    user_feedback = Column(String, nullable=True)
+    user_feedback_rating = Column(Integer, nullable=True)
+    estimated_completion_time = Column(String, nullable=True)
+
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     reporter_id = Column(Integer, ForeignKey("users.id"))
 
     reporter = relationship("User", back_populates="complaints")
+
+class Vote(Base):
+    __tablename__ = "votes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    complaint_id = Column(Integer, ForeignKey("complaints.id"))
+    vote_type = Column(String(10)) # Yes, No, Idk
 
 class Worker(Base):
     __tablename__ = "workers"
