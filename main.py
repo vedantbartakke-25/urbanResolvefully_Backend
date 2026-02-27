@@ -11,10 +11,10 @@ import uuid
 
 load_dotenv()
 
-# Supabase config from env
-SUPABASE_URL = os.getenv("SUPABASE_URL", "")
-SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "")
-SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "complaint-images")
+# Supabase config from env (with hardcoded fallbacks for Vercel)
+SUPABASE_URL = os.getenv("SUPABASE_URL", "https://vzvyjryvryggevkuumhm.supabase.co")
+SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6dnlqcnl2cnlnZ2V2a3V1bWhtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjA4NDgwMCwiZXhwIjoyMDg3NjYwODAwfQ.GWHsXI0hTcuIV9_myJdjm6NpTAnx7vAeSLwI0zQZ9eM")
+SUPABASE_BUCKET = os.getenv("SUPABASE_BUCKET", "Urbansarthi")
 
 def get_db():
     db = SessionLocal()
